@@ -83,21 +83,21 @@ node src/index.js document
 
 ```bash
 node src/index.js document.txt -o custom
-node src/index.js document.txt -output custom
+node src/index.js document.txt --output custom
 ```
 
 7. The command which take `.txt` file from the `document` directory, convert it into `.html` file and store in the `custom` directory
 
 ```bash
 node src/index.js document.txt -o custom
-node src/index.js document.txt -output custom
+node src/index.js document.txt --output custom
 ```
 
 8. This command will search for all `.txt` files in the `document` directory and its subdirectories, convert them to `.html` file, and recreate the same directory structure in the `custom` directory with the corresponding `.html` files.
 
 ```bash
 node src/index.js -o custom document
-node src/index.js -output custom document
+node src/index.js --output custom document
 ```
 
 ## Example
