@@ -49,33 +49,78 @@ npm run start
 ## Usage
 
 1. The basic command is:
+
 ```bash
 node src/index.js [options] <input>
 ```
 
 2. The command to display help menu:
+
 ```bash
-node src/index.js -h 
+node src/index.js -h
 node src/index.js --help
 ```
+
 3. The command to display the version of the TxtToHTML CLI Tool:
+
 ```bash
 node src/index.js -v
 node src/index.js --version
 ```
+
 4. The command which takes `.txt` file and convert it to `.html` file and store it in `./til` directory.
+
 ```bash
 node src/index.js document.txt
 ```
+
 5. The command which takes `.txt` files inside the directory and convert it to `.html` file and store it in `./til` directory.
+
 ```bash
 node src/index.js document
 ```
+
 6. The command which take `.txt` file, convert it into `.html` file and store in the `custom` directory
+
 ```bash
-node src/index.js document.txt -o custom / node src/index.js document.txt -output custom
+node src/index.js document.txt -o custom
+node src/index.js document.txt -output custom
 ```
+
 7. The command which take `.txt` file from the `document` directory, convert it into `.html` file and store in the `custom` directory
+
 ```bash
-node src/index.js document.txt -o custom / node src/index.js document.txt -output custom
+node src/index.js document.txt -o custom
+node src/index.js document.txt -output custom
+```
+## Example
+**In terminal:**
+```
+PS D:\Sem_7\OSD_600\Release_1\TxtToHTML> node src/index.js ..\Nodejs.txt -o custom
+The Text file "..\Nodejs.txt" is converted into an HTML file.
+```
+
+**The original Nodejs.txt file is:**
+```
+Node.js is a JavaScript runtime that is event-driven and asynchronous, making it ideal for creating scalable network applications. The next "hello world" example allows for the handling of several connections at once. Every connection triggers the callback, but if nothing has to be done, Node.js will sleep.
+
+This contrasts with the concurrency approach that is currently more often used, which makes use of OS threads. The utilization of thread-based networking is extremely challenging and wasteful. Node.js users also don't have to worry about deadlocks because there aren't any locks. Node.js has almost no functions that conduct I/O directly, therefore the process never stalls until the I/O is carried out via synchronous methods from the standard library. Scalable systems can easily be created in Node.js since nothing blocks.
+```
+
+**The HTML file tool has generated is Nodejs.html:**
+```
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Nodejs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <p>Node.js is a JavaScript runtime that is event-driven and asynchronous, making it ideal for creating scalable network applications. The next "hello world" example allows for the handling of several connections at once. Every connection triggers the callback, but if nothing has to be done, Node.js will sleep.
+</p>
+<p>This contrasts with the concurrency approach that is currently more often used, which makes use of OS threads. The utilization of thread-based networking is extremely challenging and wasteful. Node.js users also don't have to worry about deadlocks because there aren't any locks. Node.js has almost no functions that conduct I/O directly, therefore the process never stalls until the I/O is carried out via synchronous methods from the standard library. Scalable systems can easily be created in Node.js since nothing blocks.
+</p>
+</body>
+</html>
 ```
