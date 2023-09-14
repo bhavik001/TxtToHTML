@@ -22,8 +22,6 @@ if not download the `Node.js` locally to your device.
 
 ```bash
 npm install
-npm install yargs fs path
-npm install mkdirp
 ```
 
 4. Now to run the code write the following command in the terminal:
