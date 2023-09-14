@@ -27,7 +27,6 @@ How to use for -o:
     * Usage: node index.js -o custom_output input.txt
 2. Recursively convert all .txt files in a folder to HTML with a custom output directory:
     * Usage: node index.js -o custom_output my_folder
-
 `);
 }
 
@@ -36,14 +35,16 @@ function main() {
   // Parse command-line arguments using Yargs
   const argv = yargs
     .option("output", {
-      alias: ("output", "o"),
+      alias: ["o"],
       description: "Specify the output directory (default: ./til)",
     })
     .version(version)
-    .alias("version", "v").argv;
+    .alias("version", "v")
+    .help(false).argv; // Disable the default --help option
 
-  if (process.argv.includes("-h") || process.argv.includes("--help")) {
-    optionHelp();
+  if (argv.h || argv.help) {
+    // Check for -h or --help
+    optionHelp(); // Display custom help message
     return;
   }
 
