@@ -8,6 +8,7 @@ Welcome to TxtToHTML Command Line Tool which convert `.txt` file as well as the 
 
 ```bash
 git clone https://github.com/bhavik001/TxtToHTML.git
+cd TxtToHTML
 ```
 
 2.  Make sure you have `Node.js` install. Check it using this command:
@@ -16,7 +17,7 @@ git clone https://github.com/bhavik001/TxtToHTML.git
 node -v
 ```
 
-if not download the `Node.js` locally to your device.
+if not download the `Node.js` locally to your device then download the `Node.js`
 
 3.  Run the following command in the terminal to download the dependencies:
 
