@@ -1,33 +1,42 @@
 # TxtToHTML
+
 Welcome to TxtToHTML Command Line Tool which convert `.txt` file as well as the directory containing `.txt` to `.html` file. This project was created with the help of `Node.js` and open source, cross-platform runtime environment for executing `JavaScript` code.
 
 ## How to Set-Up/ the installation process.
+
 1. To clone this repository use the command given below:
+
 ```bash
 git clone https://github.com/bhavik001/TxtToHTML.git
 ```
- 2. Make sure you have `Node.js` install. Check it using this command:
- ```bash
- node -v
- ``` 
- if not download the `Node.js` locally to your device.
 
- 3. Run the following command in the terminal to download the dependencies:
- ```bash
+2.  Make sure you have `Node.js` install. Check it using this command:
+
+```bash
+node -v
+```
+
+if not download the `Node.js` locally to your device.
+
+3.  Run the following command in the terminal to download the dependencies:
+
+```bash
 npm install
 npm install yargs fs path
 npm install mkdirp
 ```
+
 4. Now to run the code write the following command in the terminal:
+
 ```bash
 npm run start
 ```
+
 ## Features
 
 1. **Recursive Search for .txt Files**: When a user inputs a folder, TxtToHTML CLI tool will recursively scan that folder for.txt files and recreate the directory structure in the output directory.
 
-2. **Custom Output Directory**: By using the '--output' or '-o' switch, users can select an alternative output directory. The default output directory is "til" if not otherwise specified. If the directory is empty, TxtToHTML CLI tool creates it.
-
+2. **Custom Output Directory**: By using the `--output` or `-o` switch, users can select an alternative output directory. The default output directory is "til" if not otherwise specified. If the directory is empty, TxtToHTML CLI tool creates it.
 
 3. **Version Information**: Running TxtToHTML CLI tool with the `--version` or `-v` flag will print the tool's name and current version.
 
@@ -38,3 +47,35 @@ npm run start
 6. **HTML Output Generation**: For each input file, the TxtToHTML CLI tool creates a single.html file. For instance, using the tool to build a new 'bhavik.html' file from a 'bhavik.txt' file. The HTML5 standard is followed by the files that are created.
 
 ## Usage
+
+1. The basic command is:
+```bash
+node src/index.js [options] <input>
+```
+
+2. The command to display help menu:
+```bash
+node src/index.js -h 
+node src/index.js --help
+```
+3. The command to display the version of the TxtToHTML CLI Tool:
+```bash
+node src/index.js -v
+node src/index.js --version
+```
+4. The command which takes `.txt` file and convert it to `.html` file and store it in `./til` directory.
+```bash
+node src/index.js document.txt
+```
+5. The command which takes `.txt` files inside the directory and convert it to `.html` file and store it in `./til` directory.
+```bash
+node src/index.js document
+```
+6. The command which take `.txt` file, convert it into `.html` file and store in the `custom` directory
+```bash
+node src/index.js document.txt -o custom / node src/index.js document.txt -output custom
+```
+7. The command which take `.txt` file from the `document` directory, convert it into `.html` file and store in the `custom` directory
+```bash
+node src/index.js document.txt -o custom / node src/index.js document.txt -output custom
+```
