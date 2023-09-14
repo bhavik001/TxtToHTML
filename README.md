@@ -93,14 +93,25 @@ node src/index.js document.txt -output custom
 node src/index.js document.txt -o custom
 node src/index.js document.txt -output custom
 ```
+
+8. This command will search for all `.txt` files in the `document` directory and its subdirectories, convert them to `.html` file, and recreate the same directory structure in the `custom` directory with the corresponding `.html` files.
+
+```bash
+node src/index.js -o custom document
+node src/index.js -output custom document
+```
+
 ## Example
+
 **In terminal:**
+
 ```
 PS D:\Sem_7\OSD_600\Release_1\TxtToHTML> node src/index.js ..\Nodejs.txt -o custom
 The Text file "..\Nodejs.txt" is converted into an HTML file.
 ```
 
 **The original Nodejs.txt file is:**
+
 ```
 Node.js is a JavaScript runtime that is event-driven and asynchronous, making it ideal for creating scalable network applications. The next "hello world" example allows for the handling of several connections at once. Every connection triggers the callback, but if nothing has to be done, Node.js will sleep.
 
@@ -108,6 +119,7 @@ This contrasts with the concurrency approach that is currently more often used, 
 ```
 
 **The HTML file tool has generated is Nodejs.html:**
+
 ```
 <!doctype html>
 <html lang="en">
@@ -115,6 +127,7 @@ This contrasts with the concurrency approach that is currently more often used, 
   <meta charset="utf-8">
   <title>Nodejs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
   <p>Node.js is a JavaScript runtime that is event-driven and asynchronous, making it ideal for creating scalable network applications. The next "hello world" example allows for the handling of several connections at once. Every connection triggers the callback, but if nothing has to be done, Node.js will sleep.
