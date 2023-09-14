@@ -36,7 +36,7 @@ function main() {
   // Parse command-line arguments using Yargs
   const argv = yargs
     .option("output", {
-      alias: "o",
+      alias: ("output", "o"),
       description: "Specify the output directory (default: ./til)",
     })
     .version(version)
