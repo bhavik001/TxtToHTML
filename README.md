@@ -45,6 +45,8 @@ npm run start
 
 6. **HTML Output Generation**: For each input file, the TxtToHTML CLI tool creates a single.html file. For instance, using the tool to build a new 'bhavik.html' file from a 'bhavik.txt' file. The HTML5 standard is followed by the files that are created.
 
+7. **Conversion from `.md` to `.html` File**: When a user inputs `.md` file, TxtToHTML CLI tool will convert it to `.html` and store the generated file in the output directory.
+
 ## Usage
 
 1. The basic command is:
@@ -98,6 +100,12 @@ node src/index.js document.txt --output custom
 ```bash
 node src/index.js -o custom document
 node src/index.js --output custom document
+```
+
+9. The command which takes `.md` file and convert it to `.html` file and store it in `./til` directory.
+
+```bash
+node src/index.js document.md
 ```
 
 ## Example
