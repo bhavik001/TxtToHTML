@@ -68,8 +68,44 @@ function processFolder(inputDir, outputDir) {
   }
 }
 
+function processMdFile(inputFilePath, outputDir) {
+  const inputFileContent = fs.readFileSync(inputFilePath, "utf-8");
+
+  const paragraphs = inputFileContent
+      .replace(/^#\s(.+)$/gm, '<h1>$1</h1>') // heading 1
+      .replace(/^##\s(.+)$/gm, '<h2>$1</h2>') // heading 2
+      .replace(/^(?!<h[1-6]>|<ul>|<ol>|<li>|<a>).+$/gm, '<p>$&</p>') // paragraph
+      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href=$2">$1</a>') //  link
+      .replace(/\*(.*?)\*/g, '<i>$1</i>') // italic
+      .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // bold
+
+  const fileName = path.basename(inputFilePath, ".md");
+  const outputFile = path.join(outputDir, `${fileName}.html`);
+  mkdirp.sync(outputDir);
+
+  // Generate the HTML content with the extracted paragraphs
+  const htmlContent = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${fileName}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
+        crossorigin="anonymous">
+</head>
+<body>
+${paragraphs}
+</body>
+</html>`;
+
+  fs.writeFileSync(outputFile, htmlContent);
+}
+
 // Export the functions for use in other modules
 module.exports = {
   processTextFile,
   processFolder,
+  processMdFile
 };

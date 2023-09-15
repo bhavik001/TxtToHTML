@@ -3,7 +3,7 @@ const fs = require("fs"); // File system module for file operations
 const path = require("path"); // Path module for working with file paths
 const yargs = require("yargs"); // Yargs module for command-line argument parsing
 const mkdirp = require("mkdirp"); // mkdirp module for creating directories recursively
-const { processTextFile, processFolder } = require("./utils"); // Custom utility functions
+const { processTextFile, processFolder, processMdFile} = require("./utils"); // Custom utility functions
 
 // Define the version of the tool
 const version = "1.0.0";
@@ -70,7 +70,12 @@ function main() {
     // If the input is a .txt file, convert it to an HTML file
     processTextFile(inputPath, outputDir);
     console.log(`The Text file "${inputPath}" is converted into an HTML file.`);
-  } else {
+  } else if (inputPath.endsWith(".md")) {
+    // If the input is a .md file, convert it to an HTML file
+    processMdFile(inputPath, outputDir);
+    console.log(`The md file "${inputPath}" is converted into an HTML file.`);
+  }
+  else {
     console.error("Error: Invalid input file or directory.");
     process.exit(1);
   }
