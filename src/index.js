@@ -2,7 +2,6 @@
 const fs = require("fs"); // File system module for file operations
 const path = require("path"); // Path module for working with file paths
 const yargs = require("yargs"); // Yargs module for command-line argument parsing
-const mkdirp = require("mkdirp"); // mkdirp module for creating directories recursively
 const { processTextFile, processFolder, processMdFile } = require("./utils"); // Custom utility functions
 
 // Read the version from package.json
@@ -31,6 +30,26 @@ How to use for -o:
 `);
 }
 
+// Function to clear the output directory
+function clearOutputDir(outputDir) {
+  if (fs.existsSync(outputDir)) {
+    // Remove all files and directories inside the output directory
+    const files = fs.readdirSync(outputDir);
+    for (const file of files) {
+      const filePath = path.join(outputDir, file);
+      if (fs.statSync(filePath).isDirectory()) {
+        // Recursively remove subdirectories
+        clearOutputDir(filePath);
+      } else {
+        // Remove files
+        fs.unlinkSync(filePath);
+      }
+    }
+    // Remove the output directory itself
+    fs.rmdirSync(outputDir);
+  }
+}
+
 // The main function that performs the core functionality of the tool
 function main() {
   // Parse command-line arguments using Yargs
@@ -52,6 +71,9 @@ function main() {
   let inputPath = argv._[0] || "."; // Get the input path from command-line arguments
   let outputDir = argv.output || "./til"; // Get the output directory from command-line arguments
 
+  // Clear the output directory before processing files
+  clearOutputDir(outputDir);
+
   // Check if the input path exists
   if (!fs.existsSync(inputPath)) {
     console.error(`Error: Input path "${inputPath}" does not exist.`);
@@ -62,7 +84,10 @@ function main() {
   if (fs.statSync(inputPath).isDirectory()) {
     // If the input is a directory, create the output directory hierarchy
     inputPath = path.resolve(inputPath); // Convert relative path to absolute path
-    mkdirp.sync(outputDir); // Create output directory if it doesn't exist
+
+    // Create output directory if it doesn't exist (with recursive option)
+    fs.mkdirSync(outputDir, { recursive: true });
+
     processFolder(inputPath, outputDir); // Process all text files in the directory
     console.log(
       `Text files inside the directory are converted into HTML files.`
@@ -73,7 +98,7 @@ function main() {
     console.log(`The Text file "${inputPath}" is converted into an HTML file.`);
   } else if (inputPath.endsWith(".md")) {
     // If the input is a .md file, convert it to an HTML file
-    processTextFile(inputPath, outputDir);
+    processMdFile(inputPath, outputDir);
     console.log(`The md file "${inputPath}" is converted into an HTML file.`);
   } else {
     console.error("Error: Invalid input file or directory.");

@@ -14,10 +14,12 @@ function processTextFile(inputFilePath, outputDir) {
   const inputFileContent = fs.readFileSync(inputFilePath, "utf-8");
 
   // Split the content into paragraphs using regex (blank lines as separators)
-  const paragraphs = inputFileContent.split(/\n\s*\n/);
+  let paragraphs = inputFileContent.split(/\n/);
+
+  const fileExtension = path.extname(inputFilePath);
 
   // Extract the file name (without extension) from the input file path
-  const fileName = path.basename(inputFilePath, ".txt");
+  const fileName = path.basename(inputFilePath, fileExtension);
 
   // Define the path for the output HTML file
   const outputFile = path.join(outputDir, `${fileName}.html`);
@@ -32,10 +34,15 @@ function processTextFile(inputFilePath, outputDir) {
   <meta charset="utf-8">
   <title>${fileName}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
+        crossorigin="anonymous">
 </head>
 <body>
-  ${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("\n")}
+<center>
+${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("\n")}
+</center>
 </body>
 </html>`;
 
@@ -61,7 +68,7 @@ function processFolder(inputDir, outputDir) {
     if (fs.statSync(filePath).isDirectory()) {
       // Recursively process subdirectories
       processFolder(filePath, path.join(outputDir, file));
-    } else if (file.endsWith(".txt")) {
+    } else if (file.endsWith(".txt") || file.endsWith(".md")) {
       // Process text files and convert them to HTML
       processTextFile(filePath, outputDir);
     }
@@ -96,7 +103,9 @@ function processMdFile(inputFilePath, outputDir) {
         crossorigin="anonymous">
 </head>
 <body>
+<center>
 ${paragraphs}
+</center>
 </body>
 </html>`;
 
