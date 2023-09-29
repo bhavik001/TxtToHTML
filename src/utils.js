@@ -72,12 +72,12 @@ function processMdFile(inputFilePath, outputDir) {
   const inputFileContent = fs.readFileSync(inputFilePath, "utf-8");
 
   const paragraphs = inputFileContent
-      .replace(/^#\s(.+)$/gm, '<h1>$1</h1>') // heading 1
-      .replace(/^##\s(.+)$/gm, '<h2>$1</h2>') // heading 2
-      .replace(/^(?!<h[1-6]>|<ul>|<ol>|<li>|<a>).+$/gm, '<p>$&</p>') // paragraph
-      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href=$2">$1</a>') //  link
-      .replace(/\*(.*?)\*/g, '<i>$1</i>') // italic
-      .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // bold
+    .replace(/^#\s(.+)$/gm, "<h1>$1</h1>") // heading 1
+    .replace(/^##\s(.+)$/gm, "<h2>$1</h2>") // heading 2
+    .replace(/^(?!<h[1-6]>|<ul>|<ol>|<li>|<a>).+$/gm, "<p>$&</p>") // paragraph
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href=$2">$1</a>') //  link
+    .replace(/\*(.*?)\*/g, "<i>$1</i>") // italic
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>"); // bold
 
   const fileName = path.basename(inputFilePath, ".md");
   const outputFile = path.join(outputDir, `${fileName}.html`);
@@ -107,5 +107,5 @@ ${paragraphs}
 module.exports = {
   processTextFile,
   processFolder,
-  processMdFile
+  processMdFile,
 };
