@@ -84,7 +84,9 @@ function processMdFile(inputFilePath, outputDir) {
     .replace(/^(?!<h[1-6]>|<ul>|<ol>|<li>|<a>).+$/gm, "<p>$&</p>") // paragraph
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href=$2">$1</a>') //  link
     .replace(/\*(.*?)\*/g, "<i>$1</i>") // italic
-    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>"); // bold
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // bold
+    .replace(/`(.*?)`/g, "<code>$1</code>") // inline code
+    .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>"); // fenced code block
 
   const fileName = path.basename(inputFilePath, ".md");
   const outputFile = path.join(outputDir, `${fileName}.html`);
