@@ -7,9 +7,9 @@ const mkdirp = require("mkdirp"); // Import the mkdirp library for creating dire
  * Process a text file by converting it to an HTML file with paragraphs.
  *
  * @param {string} inputFilePath - The path to the input text file.
- * @param {string} outputDirectory - The directory where the HTML output file will be saved.
+ * @param {string} outputDir - The directory where the HTML output file will be saved.
  */
-function processTextFile(inputFilePath, outputDirectory) {
+function processTextFile(inputFilePath, outputDir) {
   // Read the content of the input text file
   const inputFileContent = fs.readFileSync(inputFilePath, "utf-8");
 
@@ -22,10 +22,10 @@ function processTextFile(inputFilePath, outputDirectory) {
   const fileName = path.basename(inputFilePath, fileExtension);
 
   // Define the path for the output HTML file
-  const outputFile = path.join(outputDirectory, `${fileName}.html`);
+  const outputFile = path.join(outputDir, `${fileName}.html`);
 
   // Create the output directory if it doesn't exist
-  mkdirp.sync(outputDirectory);
+  mkdirp.sync(outputDir);
 
   // Generate the HTML content with the extracted paragraphs
   const htmlContent = `<!doctype html>
@@ -54,9 +54,9 @@ ${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("\n")}
  * Recursively process all text files in a folder and its subfolders.
  *
  * @param {string} inputDir - The directory containing the text files.
- * @param {string} outputDirectory - The base directory for saving the HTML files.
+ * @param {string} outputDir - The base directory for saving the HTML files.
  */
-function processFolder(inputDir, outputDirectory) {
+function processFolder(inputDir, outputDir) {
   // Read the list of files in the input directory
   const files = fs.readdirSync(inputDir);
 
@@ -67,15 +67,15 @@ function processFolder(inputDir, outputDirectory) {
     // Check if the file is a directory
     if (fs.statSync(filePath).isDirectory()) {
       // Recursively process subdirectories
-      processFolder(filePath, path.join(outputDirectory, file));
+      processFolder(filePath, path.join(outputDir, file));
     } else if (file.endsWith(".txt") || file.endsWith(".md")) {
       // Process text files and convert them to HTML
-      processTextFile(filePath, outputDirectory);
+      processTextFile(filePath, outputDir);
     }
   }
 }
 
-function processMdFile(inputFilePath, outputDirectory) {
+function processMdFile(inputFilePath, outputDir) {
   const inputFileContent = fs.readFileSync(inputFilePath, "utf-8");
 
   const paragraphs = inputFileContent
@@ -84,14 +84,11 @@ function processMdFile(inputFilePath, outputDirectory) {
     .replace(/^(?!<h[1-6]>|<ul>|<ol>|<li>|<a>).+$/gm, "<p>$&</p>") // paragraph
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href=$2">$1</a>') //  link
     .replace(/\*(.*?)\*/g, "<i>$1</i>") // italic
-    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // bold
-    .replace(/`(.*?)`/g, "<code>$1</code>") // inline code
-    .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>") // fenced code block
-    .replace(/^---$/gm, "<hr>"); // horizontal rule
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>"); // bold
 
   const fileName = path.basename(inputFilePath, ".md");
-  const outputFile = path.join(outputDirectory, `${fileName}.html`);
-  mkdirp.sync(outputDirectory);
+  const outputFile = path.join(outputDir, `${fileName}.html`);
+  mkdirp.sync(outputDir);
 
   // Generate the HTML content with the extracted paragraphs
   const htmlContent = `<!doctype html>
