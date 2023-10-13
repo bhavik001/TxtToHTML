@@ -4,9 +4,11 @@ const path = require("path"); // Path module for working with file paths
 const yargs = require("yargs"); // Yargs module for command-line argument parsing
 const { processTextFile, processFolder, processMdFile } = require("./utils"); // Custom utility functions
 
-// Read the version from package.json
-const packageJson = JSON.parse(fs.readFileSync("package.json", "utf-8"));
-const version = packageJson.version;
+// Function to get the version from package.json
+function getVersion() {
+  const packageJson = JSON.parse(fs.readFileSync("package.json", "utf-8"));
+  return packageJson.version;
+}
 
 // Function to print help information about how to use the tool
 function optionHelp() {
@@ -39,6 +41,8 @@ function clearOutputDir(outputDirectory) {
 
 // The main function that performs the core functionality of the tool
 function main() {
+
+  const version = getVersion();
   // Parse command-line arguments using Yargs
   const argv = yargs
     .option("output", {
@@ -82,11 +86,15 @@ function main() {
   } else if (inputFilePath.endsWith(".txt")) {
     // If the input is a .txt file, convert it to an HTML file
     processTextFile(inputFilePath, outputDirectory);
-    console.log(`The Text file "${inputFilePath}" is converted into an HTML file.`);
+    console.log(
+      `The Text file "${inputFilePath}" is converted into an HTML file.`
+    );
   } else if (inputFilePath.endsWith(".md")) {
     // If the input is a .md file, convert it to an HTML file
     processMdFile(inputFilePath, outputDirectory);
-    console.log(`The md file "${inputFilePath}" is converted into an HTML file.`);
+    console.log(
+      `The md file "${inputFilePath}" is converted into an HTML file.`
+    );
   } else {
     console.error("Error: Invalid input file or directory.");
     process.exit(1);
