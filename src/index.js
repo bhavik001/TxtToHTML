@@ -33,20 +33,7 @@ How to use for -o:
 // Function to clear the output directory
 function clearOutputDir(outputDir) {
   if (fs.existsSync(outputDir)) {
-    // Remove all files and directories inside the output directory
-    const files = fs.readdirSync(outputDir);
-    for (const file of files) {
-      const filePath = path.join(outputDir, file);
-      if (fs.statSync(filePath).isDirectory()) {
-        // Recursively remove subdirectories
-        clearOutputDir(filePath);
-      } else {
-        // Remove files
-        fs.unlinkSync(filePath);
-      }
-    }
-    // Remove the output directory itself
-    fs.rmdirSync(outputDir);
+    fs.rmSync(outputDir, { recursive: true, force: true });
   }
 }
 
