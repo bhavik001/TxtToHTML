@@ -9,7 +9,7 @@ const mkdirp = require("mkdirp"); // Import the mkdirp library for creating dire
  * @param {string} inputFilePath - The path to the input text file.
  * @param {string} outputDirectory - The directory where the HTML output file will be saved.
  */
-function processTextFile(inputFilePath, outputDirectory) {
+function processTextFile(inputFilePath, outputDirectory, metadata = {}) {
   // Read the content of the input text file
   const inputFileContent = fs.readFileSync(inputFilePath, "utf-8");
 
@@ -29,27 +29,26 @@ function processTextFile(inputFilePath, outputDirectory) {
 
   // Generate the HTML content with the extracted paragraphs
   const htmlContent = `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>${fileName}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Your page description here for SEO">
-  <meta name="keywords" content="your, keywords, here, for, SEO">
-  <meta property="og:title" content="${fileName}">
-  <meta property="og:description" content="Your Open Graph description for social sharing">
-  <!-- Add more meta tags as needed for SEO -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
-        crossorigin="anonymous">
-</head>
-<body>
-<center>
-${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("\n")}
-</center>
-</body>
-</html>`;
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>${metadata.title || fileName}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="${
+      metadata.description || "Default description"
+    }">
+    <meta name="keywords" content="${metadata.keywords || "Default, keywords"}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
+          crossorigin="anonymous">
+  </head>
+  <body>
+  <center>
+  ${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("\n")}
+  </center>
+  </body>
+  </html>`;
 
   // Write the HTML content to the output file
   fs.writeFileSync(outputFile, htmlContent);
@@ -80,7 +79,7 @@ function processFolder(inputDir, outputDirectory) {
   }
 }
 
-function processMdFile(inputFilePath, outputDirectory) {
+function processMdFile(inputFilePath, outputDirectory, metadata = {}) {
   const inputFileContent = fs.readFileSync(inputFilePath, "utf-8");
 
   const paragraphs = inputFileContent
@@ -100,27 +99,26 @@ function processMdFile(inputFilePath, outputDirectory) {
 
   // Generate the HTML content with the extracted paragraphs
   const htmlContent = `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>${fileName}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Your page description here for SEO">
-  <meta name="keywords" content="your, keywords, here, for, SEO">
-  <meta property="og:title" content="${fileName}">
-  <meta property="og:description" content="Your Open Graph description for social sharing">
-  <!-- Add more meta tags as needed for SEO -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
-        crossorigin="anonymous">
-</head>
-<body>
-<center>
-${paragraphs}
-</center>
-</body>
-</html>`;
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>${metadata.title || fileName}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="${
+      metadata.description || "Default description"
+    }">
+    <meta name="keywords" content="${metadata.keywords || "Default, keywords"}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
+          crossorigin="anonymous">
+  </head>
+  <body>
+  <center>
+  ${paragraphs}
+  </center>
+  </body>
+  </html>`;
 
   fs.writeFileSync(outputFile, htmlContent);
 }
