@@ -42,6 +42,13 @@ function clearOutputDir(outputDirectory) {
 // The main function that performs the core functionality of the tool
 function main() {
   const version = getVersion();
+
+  // Define SEO metadata for the file
+  const metadata = {
+    title: "Hello Everyone",
+    description: "Meta tag file",
+    keywords: "conversion, text, markdown",
+  };
   // Parse command-line arguments using Yargs
   const argv = yargs
     .option("output", {
@@ -78,19 +85,19 @@ function main() {
     // Create output directory if it doesn't exist (with recursive option)
     fs.mkdirSync(outputDirectory, { recursive: true });
 
-    processFolder(inputFilePath, outputDirectory); // Process all text files in the directory
+    processFolder(inputFilePath, outputDirectory, metadata); // Process all text files in the directory
     console.log(
       `Text files inside the directory are converted into HTML files.`
     );
   } else if (inputFilePath.endsWith(".txt")) {
     // If the input is a .txt file, convert it to an HTML file
-    processTextFile(inputFilePath, outputDirectory);
+    processTextFile(inputFilePath, outputDirectory, metadata);
     console.log(
       `The Text file "${inputFilePath}" is converted into an HTML file.`
     );
   } else if (inputFilePath.endsWith(".md")) {
     // If the input is a .md file, convert it to an HTML file
-    processMdFile(inputFilePath, outputDirectory);
+    processMdFile(inputFilePath, outputDirectory, metadata);
     console.log(
       `The md file "${inputFilePath}" is converted into an HTML file.`
     );
