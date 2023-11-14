@@ -31,6 +31,36 @@ npm install
 node src/index.js -h
 ```
 
+## Testing
+
+We use Jest as our testing framework. To run tests, use the following command:
+
+```bash
+npm test
+```
+
+## Writing Tests
+
+When writing tests for the project, consider the following guidelines:
+
+1. For each function or method, create separate test cases for various combinations of arguments.
+2. Cover different code paths, including conditionals and loops.
+3. Test "good" values and "bad" values your functions might encounter.
+4. Consider the proper return type of your functions and cover all possible "good" return values.
+5. Include test cases for extreme error conditions to ensure robust error handling.
+
+## Test Organization
+
+Add all the test file inside the test directory. See the example below:
+TXTTOHTML
+├── src
+│ ├── index.js
+│ ├── utils.js
+│ └── ...
+└── test
+├── utils.test.js
+└── ...
+
 ## Code Formatting
 
 We use [Prettier](https://prettier.io/) to format our code. To format your code, run the following command:
