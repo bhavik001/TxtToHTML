@@ -52,6 +52,7 @@ When writing tests for the project, consider the following guidelines:
 ## Test Organization
 
 Add all the test file inside the test directory. See the example below:
+```
 TXTTOHTML
 ├── src
 │ ├── index.js
@@ -60,7 +61,7 @@ TXTTOHTML
 └── test
 ├── utils.test.js
 └── ...
-
+```
 ## Code Formatting
 
 We use [Prettier](https://prettier.io/) to format our code. To format your code, run the following command:
