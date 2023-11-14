@@ -52,6 +52,8 @@ When writing tests for the project, consider the following guidelines:
 ## Test Organization
 
 Add all the test file inside the test directory. See the example below:
+
+```
 TXTTOHTML
 ├── src
 │ ├── index.js
@@ -60,6 +62,7 @@ TXTTOHTML
 └── test
 ├── utils.test.js
 └── ...
+```
 
 ## Code Formatting
 
